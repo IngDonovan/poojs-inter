@@ -78,6 +78,35 @@ Object.defineProperty(ingD,"pruebaNasa", {
 // Object.seal(ingD);
 //todas tendran congigurable:false y writable:false
 //ni borrar ni editar
-Object.freeze(ingD);
+// Object.freeze(ingD);
 
-console.log(Object.getOwnPropertyDescriptors(ingD));
+// console.log(Object.getOwnPropertyDescriptors(ingD));
+
+//object Copy
+
+const obj1={
+    a:"a",
+    b:"b",
+    c:{
+        d:"d",
+        e:"e",
+    }
+}//afecta a "d y e" por la referencia
+
+const obj2 = {};
+// solo funciona para un nivel
+for (prop in obj1){
+    obj2[prop] = obj1[prop]
+}
+
+const obj3 = Object.assign({},obj1);//lo mismo pero de un solo level
+
+const obj4 = Object.create(obj1);//apunta a objeto 1 Proto, las copias originales si afectan 
+/*
+{}
+[[Prototype]]:Object
+a:"a"
+b:"b"
+c:{d: 'd', e: 'e'}
+*/
+
