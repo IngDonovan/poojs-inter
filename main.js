@@ -90,18 +90,21 @@ const obj1={
     c:{
         d:"d",
         e:"e",
+    },
+    editA() {
+        this.a = 'Abcd'
     }
 }//afecta a "d y e" por la referencia
 
-const obj2 = {};
+// const obj2 = {};
 // solo funciona para un nivel
-for (prop in obj1){
-    obj2[prop] = obj1[prop]
-}
+// for (prop in obj1){
+//     obj2[prop] = obj1[prop]
+// }
 
-const obj3 = Object.assign({},obj1);//lo mismo pero de un solo level
+// const obj3 = Object.assign({},obj1);//lo mismo pero de un solo level
 
-const obj4 = Object.create(obj1);//apunta a objeto 1 Proto, las copias originales si afectan 
+// const obj4 = Object.create(obj1);//apunta a objeto 1 Proto, las copias originales si afectan 
 /*
 {}
 [[Prototype]]:Object
@@ -110,3 +113,13 @@ b:"b"
 c:{d: 'd', e: 'e'}
 */
 
+// -------------------------JSON
+const stringifyComplexObj = JSON.stringify(obj1);
+//'{"a":"a","b":"b","c":{"d":"d","e":"e"}}'
+const obj2 = JSON.parse(stringifyComplexObj);
+/*
+a:"a"
+b:"b"
+c:{d: 'd', e: 'e'}
+*/
+//exepto cuando se trabaja con metodos, Parse no trabaja con metodos, nbo lo detecta y los omite
