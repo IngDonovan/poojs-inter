@@ -256,18 +256,40 @@ function createStudent({
     facebook,
 
     } = {} ) {
-    return {
-        name,
-        email,
-        age,
-        approvedCourse,
-        learningPaths,
-        socialMedia: {
-            twitter,
-            instagram,
-            facebook,
+        const private = {
+            "_name": name,
 
-        }
-    };
+        };
+        const public = {
+            email,
+            age,
+            approvedCourse,
+            learningPaths,
+            socialMedia: {
+                twitter,
+                instagram,
+                facebook,
+            },
+            readName(){
+                return private["_name"];
+            },
+            changeName(newName){
+                private["_name"] = newName;
+            },
+        };
+
+    Object.defineProperty(public, "readName", {
+        writable: false,
+        configurable:false,
+    });
+    Object.changeName(public, "readName", {
+        writable: false,
+        configurable:false,
+    });
+
+    return public;
 }
-const dono = createStudent();
+const dono = createStudent({
+    name: "ing",
+    email: "ro@gm.co",
+});
