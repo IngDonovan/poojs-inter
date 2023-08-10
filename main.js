@@ -114,12 +114,38 @@ c:{d: 'd', e: 'e'}
 */
 
 // -------------------------JSON
-const stringifyComplexObj = JSON.stringify(obj1);
+// const stringifyComplexObj = JSON.stringify(obj1);
 //'{"a":"a","b":"b","c":{"d":"d","e":"e"}}'
-const obj2 = JSON.parse(stringifyComplexObj);
+// const obj2 = JSON.parse(stringifyComplexObj);
 /*
 a:"a"
 b:"b"
 c:{d: 'd', e: 'e'}
 */
 //exepto cuando se trabaja con metodos, Parse no trabaja con metodos, nbo lo detecta y los omite
+
+
+// function recursiva() {
+//     if (/* Validacion */) {
+//         //llamados recursivos
+//     } else {
+//         //llamados normales, sin recursividad
+//     }
+// }
+const numeritos=[0,1,2,3,4,5,5,6,7,8,923434,7,2,3]
+// let numerito = 0;
+// for(let index = 0; index < numeritos.length; index++){
+//     numerito = numeritos[index];
+//     console.log({index,numerito});
+// }
+
+//con recursividad
+function recursiva(numbersArray) {
+    if (numbersArray.length != 0) {
+        //llamados recursivos
+        const firstNum = numbersArray[0];
+        console.log(firstNum);
+        numbersArray.shift();
+        recursiva(numbersArray);
+    }
+}
