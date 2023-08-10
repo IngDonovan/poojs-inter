@@ -1,11 +1,11 @@
-const ingD = {
-    name: "Dono",
-    age: 34,
-    approvedCourses: ["Curso 1"],
-    addCourse(newCourse){
-        this.approvedCourses.push(newCourse);
-    }
-};
+// const ingD = {
+//     name: "Dono",
+//     age: 34,
+//     approvedCourses: ["Curso 1"],
+//     addCourse(newCourse){
+//         this.approvedCourses.push(newCourse);
+//     }
+// };
 //use properties Object
 //console.log(Object.keys(ingD)); 
 /*
@@ -43,36 +43,36 @@ name:{value: 'Dono', writable: true, enumerable: true, configurable: true}
 //para crear nuevas propiedades en el objeto
 //no aparecerá en Object.keys , pero si en .getOwnPropertyNames
 //puedo editarlo
-Object.defineProperty(ingD,"navigator", {
-    value: "Chrome",
-    writable: true, 
-    enumerable: false, 
-    configurable: true,
-});
+// Object.defineProperty(ingD,"navigator", {
+//     value: "Chrome",
+//     writable: true, 
+//     enumerable: false, 
+//     configurable: true,
+// });
 //aparece en O.keys por enumerable
 //pero no se edita , no actualiza los nuevos datos =
 //pero si lo puedo borrar
-Object.defineProperty(ingD,"editor", {
-    value: "VSCode",
-    writable: false, 
-    enumerable: true, 
-    configurable: true,
-});
+// Object.defineProperty(ingD,"editor", {
+//     value: "VSCode",
+//     writable: false, 
+//     enumerable: true, 
+//     configurable: true,
+// });
 //puedo editarla  Y que aparezca en keys como en get...
 //pero no dejará borrarla
-Object.defineProperty(ingD,"terminal", {
-    value: "WSL",
-    writable: true, 
-    enumerable: true, 
-    configurable: false,
-});
+// Object.defineProperty(ingD,"terminal", {
+//     value: "WSL",
+//     writable: true, 
+//     enumerable: true, 
+//     configurable: false,
+// });
 //no aparece en keys, no deja editar, y tampoco eliminar
-Object.defineProperty(ingD,"pruebaNasa", {
-    value: "extraterrestre",
-    writable: false, 
-    enumerable: false, 
-    configurable: false,
-});
+// Object.defineProperty(ingD,"pruebaNasa", {
+//     value: "extraterrestre",
+//     writable: false, 
+//     enumerable: false, 
+//     configurable: false,
+// });
 //edita la propiedad a todos configurable:false
 //no dejará borrar ninguna
 // Object.seal(ingD);
@@ -84,17 +84,17 @@ Object.defineProperty(ingD,"pruebaNasa", {
 
 //object Copy
 
-const obj1={
-    a:"a",
-    b:"b",
-    c:{
-        d:"d",
-        e:"e",
-    },
-    editA() {
-        this.a = 'Abcd'
-    }
-}//afecta a "d y e" por la referencia
+// const obj1={
+//     a:"a",
+//     b:"b",
+//     c:{
+//         d:"d",
+//         e:"e",
+//     },
+//     editA() {
+//         this.a = 'Abcd'
+//     }
+// }//afecta a "d y e" por la referencia
 
 // const obj2 = {};
 // solo funciona para un nivel
@@ -188,23 +188,23 @@ function deepCopy(subject) {
     return copySubject;
 }
 
-const juan = {
-    name: "Juanito",
-    approvedCourses: ["Curso 1","Curso 2"],
-    caracteristicas: {
-      age: 18,
-      colorCabello: 'Negro',
-      gustos: {
-        musica: ['rock', 'punk', 'ska'],
-        peliculas: ['drama', 'horros', 'comedia'],
-      },
-    },
-    addCourse(newCourse) {
-      console.log("This", this);
-      console.log("This.approvedCourses", this.approvedCourses);
-      this.approvedCourses.push(newCourse);
-    }
-  };
+// const juan = {
+//     name: "Juanito",
+//     approvedCourses: ["Curso 1","Curso 2"],
+//     caracteristicas: {
+//       age: 18,
+//       colorCabello: 'Negro',
+//       gustos: {
+//         musica: ['rock', 'punk', 'ska'],
+//         peliculas: ['drama', 'horros', 'comedia'],
+//       },
+//     },
+//     addCourse(newCourse) {
+//       console.log("This", this);
+//       console.log("This.approvedCourses", this.approvedCourses);
+//       this.approvedCourses.push(newCourse);
+//     }
+//   };
 
   function deepFreeze(obj) {
     if( typeof(obj)!=="object") return
@@ -215,3 +215,27 @@ const juan = {
       deepFreeze(obj[key]) 
     }
 }
+
+//abstracción sin prototipos:
+const stundentBase = {
+    name: undefined,
+    email: undefined,
+    age: undefined,
+    approvedCourse: undefined,
+    learningPaths: undefined,
+    socialMedia: {
+        twitter: undefined,
+        instagram: undefined,
+        facebook: undefined,
+    },
+};
+
+const dono = deepCopy(stundentBase);
+// Object.defineProperty(juan, "name",{
+//     value: "Inge",
+//     configurable:false,
+// });
+Object.seal(dono);
+// Object.isSealed(dono);//Boolean if configurate false?
+// Object.isFrozen(dono);//Boolean if false?
+juan.name = "Inge";
