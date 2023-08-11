@@ -50,35 +50,38 @@ function requiredParam(param) {
     throw new Error(param + " es Obligatorio");
 }
 
-function createlearningPath({
+function LearningPath({
     name = requiredParam("name"),
     courses = [],
 }) {
-    const private = {
-        "_name": name,
-        "_courses": courses,
-    };
+    this.name = name;
+    this.courses = courses;
 
-    const public = {
-        get name() {
-            return private["_name"];
-        },
-        set name(newName) {
-            if (newName.lenght != 0) {
-                private["_name"] = newName;
-            }else{
-                console.warn("Tu nombre debe tener al menos un caracter");
-            }
-        },
-        get courses() {
-            return private["_courses"];
-        },
+    // const private = {
+    //     "_name": name,
+    //     "_courses": courses,
+    // };
 
-    };
+    // const public = {
+    //     get name() {
+    //         return private["_name"];
+    //     },
+    //     set name(newName) {
+    //         if (newName.lenght != 0) {
+    //             private["_name"] = newName;
+    //         }else{
+    //             console.warn("Tu nombre debe tener al menos un caracter");
+    //         }
+    //     },
+    //     get courses() {
+    //         return private["_courses"];
+    //     },
+
+    // };
     return public;
 }
 
-function createStudent({
+function Student({
     name = requiredParam("name"),
     email = requiredParam("email"),
     age,
@@ -89,61 +92,75 @@ function createStudent({
     facebook,
 
     } = {} ) {
-        const private = {
-            "_name": name,
-            "_learningPaths":learningPaths,
 
-        };
-        const public = {
-            email,
-            age,
-            approvedCourse,
-            // learningPaths,
-            socialMedia: {
-                twitter,
-                instagram,
-                facebook,
-            },
-            get name() {
-                return private["_name"];
-            },
-            set name(newName) {
-                if (newName.lenght != 0) {
-                    private["_name"] = newName;
-                }else{
-                    console.warn("Tu nombre debe tener al menos un caracter");
-                }
-            },
-            get learningPaths() {
-                return private["_learningPaths"];
-            },
-            set learningPaths(newLP) {
-                // AQUÍ empezamos a aplicar DUCK TYPING 👀🦆
-                if(!newLP.name){
-                    console.warn("Tu LP no tiene la propiedad Name");
-                    return;
-                }
-                if (!newLP.courses){
-                    console.warn("Tu LP no tiene courses");
-                    return;
-                }
-                if (!isArray(newLP.courses)){
-                    console.warn("Tu LP no es una lista (*de coursos)");
-                    return;
-                }
+        this.name = name;
+        this.email = email;
+        this.age = age;
+        this.approvedCourse = approvedCourse;
+        this.learningPaths = learningPaths;
+        this.socialMedia = {
+            twitter,
+            instagram,
+            facebook,
+        }
 
-                private["_learningPaths"].push(newLP);
+
+    //     const private = {
+    //         "_name": name,
+    //         "_learningPaths":learningPaths,
+
+    //     };
+    //     const public = {
+    //         email,
+    //         age,
+    //         approvedCourse,
+    //         // learningPaths,
+    //         socialMedia: {
+    //             twitter,
+    //             instagram,
+    //             facebook,
+    //         },
+    //         get name() {
+    //             return private["_name"];
+    //         },
+    //         set name(newName) {
+    //             if (newName.lenght != 0) {
+    //                 private["_name"] = newName;
+    //             }else{
+    //                 console.warn("Tu nombre debe tener al menos un caracter");
+    //             }
+    //         },
+    //         get learningPaths() {
+    //             return private["_learningPaths"];
+    //         },
+    //         set learningPaths(newLP) {
+    //             // AQUÍ empezamos a aplicar DUCK TYPING 👀🦆
+    //             if(!newLP.name){
+    //                 console.warn("Tu LP no tiene la propiedad Name");
+    //                 return;
+    //             }
+    //             if (!newLP.courses){
+    //                 console.warn("Tu LP no tiene courses");
+    //                 return;
+    //             }
+    //             if (!isArray(newLP.courses)){
+    //                 console.warn("Tu LP no es una lista (*de coursos)");
+    //                 return;
+    //             }
+
+    //             private["_learningPaths"].push(newLP);
                 
-            },
+    //         },
 
-        };
+    //     };
 
 
 
-    return public;
+    // return public;
 }
-const dono = createStudent({
+const dono = new Student({
     name: "ing",
     email: "ro@gm.co",
 });
-
+// dono instanceof Student
+// true
