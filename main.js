@@ -244,6 +244,33 @@ function requiredParam(param) {
     throw new Error(param + " es Obligatorio");
 }
 
+function createlearningPath({
+    name = requiredParam("name"),
+    courses = [],
+}) {
+    const private = {
+        "_name": name,
+        "_courses": courses,
+    };
+
+    const public = {
+        get name() {
+            return private["_name"];
+        },
+        set name(newName) {
+            if (newName.lenght != 0) {
+                private["_name"] = newName;
+            }else{
+                console.warn("Tu nombre debe tener al menos un caracter");
+            }
+        },
+        get courses() {
+            return private["_courses"];
+        },
+
+    };
+    return public;
+}
 
 function createStudent({
     name = requiredParam("name"),
@@ -258,13 +285,14 @@ function createStudent({
     } = {} ) {
         const private = {
             "_name": name,
+            "_learningPaths":learningPaths,
 
         };
         const public = {
             email,
             age,
             approvedCourse,
-            learningPaths,
+            // learningPaths,
             socialMedia: {
                 twitter,
                 instagram,
@@ -279,6 +307,30 @@ function createStudent({
                 }else{
                     console.warn("Tu nombre debe tener al menos un caracter");
                 }
+            },
+            get learningPaths() {
+                return private["_learningPaths"];
+            },
+            set learningPaths(newLP) {
+                // AQUÍ empezamos a aplicar DUCK TYPING 👀🦆
+                if(!newLP.name){
+                    console.warn("Tu LP no tiene la propiedad Name");
+                    return;
+                }
+                if (!newLP.courses){
+                    console.warn("Tu LP no tiene courses");
+                    return;
+                }
+                if (!isArray(newLP.courses)){
+                    console.warn("Tu LP no es una lista (*de coursos)");
+                    return;
+                }
+                // Si la nueva ruta de aprendizaje pasó por todas las validaciones
+                // correctamente...Quiere decir que SÍ es una ruta válida tal como
+                // la deseamos que fuese. Por tanto, procedemos a añadir ese Learning Path
+                // a la lista de rutas del estudiante:
+                private["_learningPaths"].push(newLP);
+                
             },
             // readName(){
             //     return private["_name"];
@@ -303,3 +355,6 @@ const dono = createStudent({
     name: "ing",
     email: "ro@gm.co",
 });
+
+// Le asignamos al estudiante "juan" un ruta de aprendizaje:
+// dono.learningPaths = "Nueva ruta de aprendizaje";
