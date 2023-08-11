@@ -78,7 +78,7 @@ function LearningPath({
     //     },
 
     // };
-    return public;
+    // return public;
 }
 
 function Student({
@@ -97,13 +97,21 @@ function Student({
         this.email = email;
         this.age = age;
         this.approvedCourse = approvedCourse;
-        this.learningPaths = learningPaths;
+        this.learningPaths = [];
         this.socialMedia = {
             twitter,
             instagram,
             facebook,
         }
 
+        if (isArray(learningPaths)) {
+            for (learningPath of learningPaths){
+                if (learningPath instanceof LearningPath) {
+                    this.learningPaths.push(learningPath);
+                }
+            }
+        }
+        
 
     //     const private = {
     //         "_name": name,
@@ -158,9 +166,24 @@ function Student({
 
     // return public;
 }
+const escuelaWeb = new LearningPath({
+    name: "Escuela Web",
+});
+const escuelaData = new LearningPath({
+    name: "Escuela DataScience",
+});
+
 const dono = new Student({
     name: "ing",
     email: "ro@gm.co",
+    learningPaths:[
+        escuelaWeb,
+        escuelaData,
+        // {
+        //     name:"Impostor",
+        //     courses: [],
+        // }
+    ]
 });
 // dono instanceof Student
 // true
