@@ -1,11 +1,7 @@
-function isObject(subject) {
-    return typeof subject == "object";
-}
-function isArray(subject) {
-    return Array.isArray(subject);
-}
 
-function deepCopy(subject) {
+function SuperObject() {}
+// SuperObject.prototype.deepCopy = function ...
+SuperObject.deepCopy = function (subject) {
     let copySubject;
 
     const subjectIsObject= isObject(subject);
@@ -35,7 +31,7 @@ function deepCopy(subject) {
 
     return copySubject;
 }
-  function deepFreeze(obj) {
+SuperObject.deepFreeze = function (obj) {
     if( typeof(obj)!=="object") return
 
     Object.freeze(obj); 
@@ -44,7 +40,13 @@ function deepCopy(subject) {
       deepFreeze(obj[key]) 
     }
 }
-
+SuperObject.isObject = function (subject) {
+    return typeof subject == "object";//hay que arreglarlo
+}
+SuperObject.isArray = function (subject) {
+    return Array.isArray(subject);
+}
+//pa llamarlos SuperObject.deepCopy({...})
 
 function requiredParam(param) {
     throw new Error(param + " es Obligatorio");
