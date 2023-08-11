@@ -102,15 +102,37 @@ function Student({
             twitter,
             instagram,
             facebook,
+        };
+
+        const private = {
+            "_learningPaths": [],
         }
 
-        if (isArray(learningPaths)) {
-            for (learningPath of learningPaths){
-                if (learningPath instanceof LearningPath) {
-                    this.learningPaths.push(learningPath);
+        Object.defineProperty(this, "learningPaths", {
+            get(){
+                return private["_learningPaths"];
+            },
+            set(newLp){
+                if (newLp instanceof LearningPath) {
+                    private["_learningPaths"].push(newLp);
+                } else {
+                    console.warn("Alguno de los LPs no es una instancia del prototipo LearningPath");
                 }
             }
+        });
+        for (let learningPath of learningPaths){
+            this.learningPaths = learningPath;
         }
+
+
+
+        // if (isArray(learningPaths)) {
+        //     for (learningPath of learningPaths){
+        //         if (learningPath instanceof LearningPath) {
+        //             this.learningPaths.push(learningPath);
+        //         }
+        //     }
+        // }
         
 
     //     const private = {
